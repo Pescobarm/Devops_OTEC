@@ -1,0 +1,13 @@
+✅ Pruebas rápidas
+Obtener órdenes:
+
+bash
+Copiar código
+curl http://localhost:8080/orders
+Crear una orden:
+
+bash
+Copiar código
+curl -X POST http://localhost:8080/orders \
+     -H "Content-Type: application/json" \
+     -d '{"user_id": 1, "product_id": 2}'

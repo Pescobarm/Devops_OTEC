@@ -1,0 +1,67 @@
+ideal como segunda práctica para tu clase, que combina múltiples conceptos de Docker, como:
+
+Uso de Docker Compose
+
+Servicio web con Flask
+
+Servicio de base de datos con PostgreSQL
+
+Variables de entorno
+
+Comunicación entre contenedores
+
+Persistencia de datos con volúmenes
+
+🧪 Ejercicio Práctico: WebApp Flask + PostgreSQL con Docker Compose
+🎯 Objetivo:
+Desplegar una aplicación web Python/Flask que guarda datos en una base de datos PostgreSQL, usando contenedores coordinados con Docker Compose.
+
+📂 Estructura del proyecto
+Copiar código
+flask-postgres-app/
+│
+├── app/
+│   ├── app.py
+│   └── requirements.txt
+│
+├── docker-compose.yml
+└── Dockerfile
+
+
+🚀 ¿Cómo correr el proyecto?
+Desde la carpeta raíz flask-postgres-app/, ejecutar:
+
+bash
+
+docker compose up --build
+
+✅ ¿Cómo probarlo?
+Abre navegador en http://localhost:5000 → debería decir:
+¡Web App con Flask y PostgreSQL en Docker!
+
+Crear un registro (usando curl o Postman):
+
+bash
+
+curl -X POST http://localhost:5000/crear
+Ver registros:
+
+bash
+
+curl http://localhost:5000/ver
+Resultado esperado:
+
+json
+
+{"resultados": [[1, "Hola desde Flask!"], [2, "Hola desde Flask!"]]}
+
+🧠 ¿Qué se enseña con este ejercicio?
+Conexión entre contenedores por nombre de servicio (db)
+
+Uso de variables de entorno en Docker Compose
+
+Persistencia de datos con volumes
+
+Escalabilidad: separar lógica de backend y base de datos
+
+Introducción al patrón “multi-contenedor”

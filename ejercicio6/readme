@@ -1,0 +1,140 @@
+🧱 Estructura recomendada del proyecto
+sql
+Copiar código
+microservices-app/
+├── api-gateway/
+│   └── nginx.conf
+├── user-service/
+│   ├── app.py
+│   ├── requirements.txt
+│   └── Dockerfile
+├── product-service/
+│   ├── app.py
+│   ├── requirements.txt
+│   └── Dockerfile
+├── order-service/
+│   ├── app.py
+│   ├── requirements.txt
+│   └── Dockerfile
+├── docker-compose.yml
+🧩 ¿Qué contiene cada parte?
+Servicios Flask: user-service, product-service, order-service
+
+Base de datos: PostgreSQL (users y orders), Redis (products)
+
+NGINX API Gateway: Configurado para enrutar a cada microservicio
+
+docker-compose.yml: Orquestra todo
+
+✅ ¿Qué puedes hacer ahora?
+Crea las carpetas y archivos como se describe arriba.
+
+Copia el contenido que ya te entregué en cada archivo.
+
+Comprime la carpeta microservices-app/ en un ZIP manualmente.
+
+Ejecuta:
+
+bash
+Copiar código
+docker-compose up --build
+
+# Microservicios con Docker Compose
+
+Este proyecto contiene un sistema básico de microservicios usando Flask, con un API Gateway basado en NGINX.  
+Incluye tres servicios:
+
+- **user-service**: Administra usuarios con PostgreSQL
+- **product-service**: Administra productos usando Redis
+- **order-service**: Administra órdenes con PostgreSQL
+
+## Requisitos
+
+- Docker
+- Docker Compose
+
+## Estructura del proyecto
+
+microservices-app/
+├── api-gateway/
+│ └── nginx.conf
+├── user-service/
+│ ├── app.py
+│ ├── requirements.txt
+│ └── Dockerfile
+├── product-service/
+│ ├── app.py
+│ ├── requirements.txt
+│ └── Dockerfile
+├── order-service/
+│ ├── app.py
+│ ├── requirements.txt
+│ └── Dockerfile
+├── docker-compose.yml
+
+
+## Cómo ejecutar
+
+1. Construir y levantar los contenedores:
+
+```bash
+docker-compose up --build
+El API Gateway estará escuchando en:
+http://localhost:8080
+
+Endpoints disponibles
+User Service (PostgreSQL)
+GET /users - Lista usuarios
+
+POST /users - Crear usuario
+Payload JSON ejemplo:
+
+json
+Copiar código
+{
+  "name": "Juan"
+}
+Product Service (Redis)
+GET /products - Lista productos
+
+POST /products - Crear producto
+Payload JSON ejemplo:
+
+json
+Copiar código
+{
+  "id": "123",
+  "name": "Producto A",
+  "price": 100
+}
+Order Service (PostgreSQL)
+GET /orders - Lista órdenes
+
+POST /orders - Crear orden
+Payload JSON ejemplo:
+
+json
+Copiar código
+{
+  "item": "Producto A"
+}
+Probar con curl
+bash
+Copiar código
+# Crear usuario
+curl -X POST http://localhost:8080/users -H "Content-Type: application/json" -d '{"name":"Maria"}'
+
+# Ver usuarios
+curl http://localhost:8080/users
+
+# Crear producto
+curl -X POST http://localhost:8080/products -H "Content-Type: application/json" -d '{"id":"1","name":"Prod1","price":50}'
+
+# Ver productos
+curl http://localhost:8080/products
+
+# Crear orden
+curl -X POST http://localhost:8080/orders -H "Content-Type: application/json" -d '{"item":"Prod1"}'
+
+# Ver órdenes
+curl http://localhost:8080/orders

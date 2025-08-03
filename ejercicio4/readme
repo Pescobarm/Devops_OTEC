@@ -1,0 +1,71 @@
+🧪 Ejercicio Avanzado: Aplicación Flask + PostgreSQL + Redis con caché y Docker Compose
+🎯 Objetivo:
+Desplegar una app Flask que:
+
+Lee y guarda datos en PostgreSQL.
+
+Usa Redis como sistema de caché para acelerar respuestas.
+
+Corre en múltiples contenedores Docker conectados entre sí.
+
+Expone métricas de uso (visitas) y simula cacheo inteligente.
+
+📚 Conceptos que se enseñan:
+Red de múltiples contenedores: Web + DB + Caché.
+
+Comunicación entre contenedores por nombre (db, redis).
+
+Lectura y escritura de cache con Redis.
+
+Control de versiones con Docker Compose.
+
+Persistencia con volúmenes.
+
+Tiempos de expiración en caché.
+
+Arquitectura tipo microservicio.
+
+📂 Estructura del proyecto:
+pgsql
+Copiar código
+flask-cache-app/
+│
+├── app/
+│   ├── app.py
+│   └── requirements.txt
+│
+├── docker-compose.yml
+└── Dockerfile
+
+🚀 ¿Cómo correrlo?
+Desde la raíz del proyecto:
+
+bash
+Copiar código
+docker compose up --build
+✅ ¿Cómo probarlo?
+Navegar a: http://localhost:5000
+
+Ir a: http://localhost:5000/visitas
+
+La primera vez debería mostrar:
+
+json
+Copiar código
+{"fuente": "postgresql (db)", "visitas": 1}
+Si accedes de nuevo en menos de 10 segundos:
+
+json
+Copiar código
+{"fuente": "redis (cache)", "visitas": 1}
+Después de 10 segundos, expira el caché y se recarga desde PostgreSQL.
+
+🧠 ¿Qué se aprende?
+Tema	Aplicación en el ejercicio
+Microservicios	Web, DB y Redis separados
+Comunicación entre contenedores	depends_on, nombres de servicio
+Redis como cache	Reducción de consultas a DB
+Expiración de cache	ex=10 en r.set()
+Persistencia	Volúmenes para Redis y PostgreSQL
+Docker Compose	Orquestación multi-servicio
+

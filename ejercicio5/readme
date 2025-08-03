@@ -1,0 +1,149 @@
+ejercicio más avanzado que simule un entorno real de microservicios, ideal para estudiantes que ya manejan lo básico de Docker, Flask, PostgreSQL y Redis.
+
+🧪 Ejercicio Experto: Arquitectura de Microservicios con API Gateway + Flask Services + PostgreSQL + Redis
+🎯 Objetivo:
+Simular una arquitectura moderna basada en microservicios con:
+
+Múltiples servicios Flask independientes
+
+Un API Gateway (con NGINX) que enruta las peticiones
+
+Una base de datos PostgreSQL por servicio
+
+Redis como caché compartido
+
+Comunicación entre servicios por HTTP interno
+
+🧱 Servicios incluidos:
+Servicio	Función
+api-gateway	NGINX que enruta las llamadas
+user-service	Flask con su propia base PostgreSQL
+product-service	Flask con Redis como caché
+redis	Caché de productos
+db-users	PostgreSQL para usuarios
+
+📂 Estructura del proyecto
+csharp
+Copiar código
+microservices-app/
+├── api-gateway/
+│   └── nginx.conf
+│
+├── user-service/
+│   ├── app.py
+│   └── requirements.txt
+│
+├── product-service/
+│   ├── app.py
+│   └── requirements.txt
+│
+├── docker-compose.yml
+└── Dockerfile  (base para ambos servicios Flask)
+🚀 ¿Cómo ejecutar?
+bash
+Copiar código
+docker compose up --build
+✅ ¿Cómo probarlo?
+Accede al API Gateway:
+
+Usuarios: http://localhost:8080/users
+
+Productos: http://localhost:8080/products
+
+Observa que /products usa cache Redis.
+
+Observa que /users escribe/lee en PostgreSQL propio.
+
+📈 ¿Qué se aprende con esto?
+Concepto	Aplicación en el ejercicio
+Arquitectura microservicios	Servicios independientes
+API Gateway (NGINX)	Enrutamiento de endpoints
+Comunicación HTTP interna	proxy_pass entre contenedores
+PostgreSQL dedicado	user-service persistente
+Redis como caché compartido	product-service
+Variables de entorno	Configuración desacoplada
+Docker Compose avanzado	Multi-build + redes + volúmenes
+
+🎓 Actividad sugerida:
+Desafío final para estudiantes:
+
+Agregar un nuevo microservicio (por ejemplo, “ordenes”).
+
+Conectarlo al gateway.
+
+Implementar su propia DB o cache.
+
+🎓 Actividad Final: Expandiendo la Arquitectura - Agrega un Nuevo Microservicio
+🎯 Objetivo de la actividad:
+Aplicar los conocimientos adquiridos para diseñar, construir y conectar un nuevo microservicio a la arquitectura existente, integrándolo con el API Gateway.
+
+📌 Requisitos técnicos
+Cada estudiante (o grupo) debe:
+
+✅ Crear un microservicio Flask llamado order-service que:
+
+Exponga un endpoint /orders.
+
+Use PostgreSQL para guardar órdenes simples (por ejemplo, { id, user_id, product_id }).
+
+Se comunique con el API Gateway vía NGINX.
+
+✅ Crear su propia base de datos PostgreSQL (db-orders).
+
+✅ Conectarlo en docker-compose.yml y agregarlo como backend en nginx.conf.
+
+🧱 Requisitos mínimos de order-service
+
+Base de datos:
+sql
+Copiar código
+CREATE TABLE orders (
+  id SERIAL PRIMARY KEY,
+  user_id INT,
+  product_id INT
+);
+Endpoint:
+python
+Copiar código
+@app.route('/orders')
+def get_orders():
+    # Devuelve todas las órdenes desde la base de datos
+Agregado a nginx.conf:
+nginx
+Copiar código
+location /orders {
+    proxy_pass http://order-service:5000/orders;
+}
+💡 Extensión opcional (bonus para nota máxima):
+Leer datos desde user-service y product-service usando peticiones HTTP internas.
+
+Validar que el user_id y product_id existan antes de insertar en DB.
+
+Exponer un endpoint POST /orders para crear órdenes desde el navegador o Postman.
+
+📝 Entregables
+Código funcional del nuevo servicio (order-service) y su Dockerfile.
+
+Fragmentos modificados de:
+
+docker-compose.yml
+
+nginx.conf
+
+Capturas de prueba de endpoints (/orders) funcionando vía Gateway.
+
+Documentación corta (README.md) explicando:
+
+Cómo corre el servicio
+
+Qué hace
+
+Cómo se conecta al resto
+
+🧠 Habilidades desarrolladas
+Habilidad	Detalle
+Diseño de microservicios	Separación de responsabilidades
+Infraestructura como código (IaC)	Modificación avanzada de Docker Compose
+Comunicación entre servicios	HTTP interno vía NGINX
+Integración continua de servicios	Añadir sin romper arquitectura existente
+Validación cruzada y seguridad básica	Validar datos de usuarios/productos

@@ -1,0 +1,32 @@
+
+#Agregar al final: del compose de la raiz
+
+
+  order-service:
+    build:
+      context: ./order-service
+      dockerfile: ../Dockerfile
+    environment:
+      DB_HOST: db-orders
+      DB_NAME: ordersdb
+      DB_USER: postgres
+      DB_PASS: postgres
+    depends_on:
+      - db-orders
+
+  db-orders:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: ordersdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - orderdbdata:/var/lib/postgresql/data
+
+
+#agregar al final: del compose de la raiz
+      volumes:
+        userdbdata:
+        redisdata:
+        orderdbdata:
+

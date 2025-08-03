@@ -1,0 +1,7 @@
+#Imagen Base
+FROM ubuntu:20.04
+#Instalacion de paquetes necesarios
+RUN apt update && apt install -y curl
+
+#Comando por defecto
+CMD ["echo","!Hola, Docker!"]
